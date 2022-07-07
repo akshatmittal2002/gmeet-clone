@@ -1,0 +1,108 @@
+<%-include('header') %>
+    <div class="container ">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-8 bg-danger shadow mt-5">
+                <div class="card">
+                    <%if(meetingDetails){ %>
+
+                        <table class="table table-bordered table-striped">
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4>Meeting Name</h4>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <%= meetingDetails.Name%>
+                                        </h4>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <h4>Author</h4>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <%= meetingDetails.authorName%>
+                                        </h4>
+                                    </td>
+
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <h4>Start Time</h4>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <%= meetingDetails.startTime%>
+                                        </h4>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                        <h4>End Time</h4>
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <%= meetingDetails.endTime%>
+                                        </h4>
+                                    </td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        <h4>Meeting Link</h4>
+                                    </td>
+                                    <td> <a href="/meeting/startmeeting/<%=meetingDetails.RoomId%>">Click me!</a></td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>
+                                        <h4>Meeting Id</h4>
+                                    </td>
+                                    <td id="meetingLink">
+                                        <%=meetingDetails.RoomId%>
+                                    </td>
+                                </tr>
+
+
+
+
+                            </tbody>
+                        </table>
+                        <button class = "btn btn-primary" onclick="myFunction()">Copy Meeting Id?</button>
+
+
+                        <script>
+                            function myFunction() {
+                                /* Get the text field */
+                                alert('Hello');
+                                var copyText = document.getElementById("meetingLink");
+
+                                /* Select the text field */
+                                 /* For mobile devices */
+
+                                /* Copy the text inside the text field */
+                                navigator.clipboard.writeText(copyText.innerHTML.replace(/ /g,''));
+                                console.log(copyText);
+                                /* Alert the copied text */
+                                alert("Copied the text: " + copyText.innerHTML.replace(/ /g,''));
+                            } 
+                        </script>
+                        <% }else{ %>
+
+                            <h3> I guess the meeting got expired!</h3>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <%-include('footer') %>

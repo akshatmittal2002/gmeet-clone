@@ -1,0 +1,50 @@
+<%- include('header') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+    
+        <div class="container">
+            <div class="row d-flex justify-content-center mt-5">
+            <div class="card col-5 shadow">
+                <div class="card-title text-center"><h5>New Meeting</h5></div>
+                <form action="/meeting/schedule" method="post" class="">
+                    <div class="form-group" >
+                        <label for="meetingName">Meeting Name</label>
+                        <input type="text" class="form-control" name="meetingName" id="meetingName">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        
+                        <label for="startTime">Start Time</label>
+                        <input class="dtinput form-control" type="datetime-local" name="startTime" id="startTime">
+                    </div>
+                    <br>
+                    
+                    <div class="form-group">
+                        <label for="endTime">End Time</label>
+                        <input class="dtinput form-control" type="datetime-local" name="endTime" id="endTime">
+                    </div>
+                    <div class="row justify-content-center p-3">
+
+                        <div class="justify-content-even">
+                            <label for="check">Get Notified by Email?</label>
+                            <input type="checkbox" id="check">
+
+                        </div>
+                        <input class="btn btn-primary mt-2 mb-2" type="submit" value="submit">
+                    </div>
+                    <div class="row justify-content-center p-3">
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        
+        <script>
+        config = {
+            enableTime: true
+        }
+        flatpickr(".dtinput",config)
+    </script>
+
+<%- include('footer') %>

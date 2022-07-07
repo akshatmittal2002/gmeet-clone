@@ -1,0 +1,30 @@
+<%- include('header') %>
+<link rel="stylesheet" href="style.css">
+    <% if(currentUser){ %>
+        <h3 class="display-4 text-center mt-5">Hello! <%= currentUser.username %></h3>
+        <div id="inside">
+
+            <p >Enter meeting id to join the meeting!</p>
+            <input type="text text-center" id="text">
+            <button class="btn btn-primary" id="joinmeeting" ><a id="ajmeet">Join Meeting</a></button>
+        </div>
+
+    <% }else{%>
+
+        <h3 class="display-4 text-center mt-5">Login To explore Meets!</h3>
+        <%}%>
+    <script >
+        var inputval="";
+        const input= document.getElementById('text');
+        input.value = "";
+        input.addEventListener('input',()=>{
+            let defaultval = '/meeting/startmeeting/';
+            inputval = input.value
+            defaultval = defaultval+inputval;
+            document.getElementById('ajmeet').setAttribute('href',defaultval);
+            console.log(defaultval);
+            console.log('change!!');
+        })
+
+    </script>
+<%- include('footer') %>

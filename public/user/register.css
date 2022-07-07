@@ -1,0 +1,21 @@
+#main{
+    
+    width: 30%;
+    margin: auto;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 5px solid black;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+}
+label{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+#submit{
+    margin-top:30px;
+    margin-bottom:20px;
+}

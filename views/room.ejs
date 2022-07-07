@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    const ROOM_ID = "<%=roomId %>"
+    var USER_ID = "<%=userId%>"
+    var username = "<%=username%>"
+  </script>
+  <script src="https://unpkg.com/peerjs@1.4.5/dist/peerjs.min.js" defer></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="whiteboard.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div id="sidebar">
+      <div id="message-area">
+        <div id="inner-message">
+          <input type="text" id="chatbox">
+          
+          <input type="button" value="submit" id="submit">
+        </div>
+      </div>
+    </div>
+    <div id="canvas-area"></div>
+    <div id="heading">
+      <h3>Video Area</h3>
+    </div>
+    <script>
+      function show() {
+        // document.getElementById('sidebar').classList.toggle('active');
+        if (document.getElementById('sidebar').style.width == '30%') {
+          document.getElementById('sidebar').style.width = '0px';
+          document.getElementById('chatbox').style.width = '0px';
+          document.getElementById('submit').style.width = '0px';
+          var t = document.getElementsByClassName('chat-display-sender');
+          if(t){
+
+            for(let i = 0;i<t.length;i++){
+              // console.log(t[0]);
+              t[0].style.opacity = '0';
+            }
+          }
+          var u = document.getElementsByClassName('chat-display');
+          if(u){
+            for(let i = 0;i<u.length;i++){
+              // console.log(u[0]);
+              u[0].style.opacity = '0';
+            }
+          }
+        }
+        else {
+          document.getElementById('sidebar').style.width = '30%';
+          document.getElementById('chatbox').style.width = '80%';
+          document.getElementById('submit').style.width = '20%';
+          var t = document.getElementsByClassName('chat-display-sender');
+          if(t){
+
+            for(let i = 0;i<t.length;i++){
+              // console.log(t[0]);
+              t[0].style.opacity = '1';
+            }
+          }
+          var u = document.getElementsByClassName('chat-display');
+          if(u){
+            for(let i = 0;i<u.length;i++){
+              // console.log(u[0]);
+              u[0].style.opacity = '1';
+            }
+          }
+         
+        }
+      }
+    </script>
+    <div id="highlighted-video" class="row justify-content-center">
+    </div>
+
+    <div id="bottom-row" class="row justify-content-center"></div>
+    <div id="video-area">
+    </div>
+    <!-- <div id="message-area">
+      <div id="inner-message">
+        <h3>Message Area</h3>
+        <input type="text" id="chatbox">
+        <input type="button" value="submit" id="submit">
+      </div>
+    </div> -->
+
+  </div>
+
+  <div class="allbuttons">
+    <img src="video-camera.png" id="onVideo" alt="">
+    <img src="microphone.png" id="mic" alt="">
+    <img src="share.png" id="screenShare" alt="">
+    <img src="comment.png" onclick="show()" id="chat" alt="">
+    <!-- <input type="button" value="Screen-Share" id="screenShare"> -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" id="screenShare" width="16" height="16" fill="currentColor"
+      class="bi bi-display inside-buttons" viewBox="0 0 16 16">
+      <path
+      d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z" />
+    </svg> -->
+    <img src="presentation.png" id="white-board-btn" >
+    <!-- <input type="button" class="btn btn-success inside-buttons" value="On-Video" id="onVideo"> -->
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

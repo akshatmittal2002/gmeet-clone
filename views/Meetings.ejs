@@ -1,0 +1,37 @@
+<%- include('header') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <%  if(MeetingDetails){%>
+        <div class="container">
+            <h3 class="text-center mb-5">All Your Scheduled Meetings:</h3>
+            <% for(let i = 0;i<MeetingDetails.length;i++){ %>
+                <% if(MeetingDetails[i].meetingName){%>
+                <div class="row d-flex justify-content-center mt-3">
+
+                    
+                        <div class="col-4 border card shadow">
+
+                            <h4 class="text-center"><%=MeetingDetails[i].meetingName%></h4>
+                            <div class="text-center mb-2">
+
+                                <a id="<%=MeetingDetails[i].roomId%>"href="/meeting/details/<%=MeetingDetails[i].roomId%>">Meeting Details?</a>
+                            </div>
+                            <div class="text-center mb-3">
+
+                                <a id="<%=MeetingDetails[i].roomId%>" href="/meeting/startmeeting/<%=MeetingDetails[i].roomId%>"><button class="btn btn-primary" >Join-Meeting</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <%}%>
+                    <%}%>
+                    <%}else{%>
+                        
+                        <h3>You Don't Have any Scheduled Meeting.</h3>
+                        
+                        <%  }%>
+                        
+                    </div>
+<%- include('footer') %>
+                    
