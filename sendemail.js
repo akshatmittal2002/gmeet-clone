@@ -1,27 +1,31 @@
 var nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
+const dotenv = require('dotenv');
+dotenv.config();
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'asaiakshith03@gmail.com',
-        pass: 'fhpcvpluyrrdwdhg'
+        user: process.env.MAILUSER,
+        pass: process.env.MAILPASS
     }
 });
+
 var hostName = "localhost:3000";
+
 function giveText(username,roomId){
     var text = "Hello! "+ username + "\n. Here is a gentle remainder for your meet. Your meet will start in less than 15 minutes.\n"+ "Here is the meeting Link:\n" +  hostName+ "/meeting/startmeeting/" + roomId;
     return text;
 }
+
 var mailOptions = {
-    from: 'asaiakshith03@gmail.com',
+    from: process.env.MAILUSER,
     to: 'sowjanyaarthi@gmail.com',
     subject: 'Gentle remainder about your scheduled meet!',
     text: 'Pampina choosko'
 }
 
 async function emailSender(email){
-    
     return new Promise((resolve, reject)=>{
         mailOptions.to = email;
         transporter.sendMail(mailOptions, function(error,info){
@@ -35,9 +39,10 @@ async function emailSender(email){
     })
     
 }
+
 async function sendEmail(email,date,username,roomId){
     var options = mailOptions;
-    options.to  =email;
+    options.to  = email;
     options.text = giveText(username,roomId);
     console.log(date);
     date.setMinutes(date.getMinutes()-5);
@@ -55,4 +60,5 @@ async function sendEmail(email,date,username,roomId){
         });
     })
 }
+
 module.exports = sendEmail;

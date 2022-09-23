@@ -25,12 +25,15 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
 mongoose.connect(process.env.DBURI || url).then((ans) => {
     console.log("ConnectedSuccessfully")
 }).catch((err) => {
     console.log("Error in the Connection")
 })
+
 app.set('view engine', 'ejs');
+
 //in the below line, if you use a route as /something/id, then that will look at something folder in public.
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));

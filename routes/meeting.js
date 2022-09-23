@@ -9,19 +9,18 @@ const UserMeetPacket = require('../models/usermeetingpacket');
 const sendEmail = require('../sendemail');
 const notifyJoined = require('../app');
 const io = require('socket.io');
+
 router.get('/', middlewares.loginRequired, async (req, res) => {
     const MeetingDetails = await UserMeetPacket.find({ userId: req.user._id });
     res.render('Meetings.ejs', { MeetingDetails: MeetingDetails });
 })
+
 router.get('/startmeeting/:room', middlewares.loginRequired, async (req, res) => {
-
-
     const roomId = req.params.room;
     const isValidMeeting = await UserMeetPacket.find(({ userId: req.user._id, roomId: roomId }));
     const meetingDetails = await Meeting.find({ RoomId: roomId });
     console.log(meetingDetails);
     if (isValidMeeting && isValidMeeting.length > 0) {
-
         res.render('room', { roomId: req.params.room, userId: req.user._id,username:req.user.username });
     }
     else {
@@ -33,25 +32,23 @@ router.get('/startmeeting/:room', middlewares.loginRequired, async (req, res) =>
             res.redirect('/pendingroom');
         }
         else {
-
             req.flash('failure', 'You are not allowed to join this room');
             res.redirect('/meeting/schedule');
         }
     }
-
-
-
 })
+
 router.get('/details/:room', middlewares.loginRequired, async (req, res) => {
     const meetingDetails = await Meeting.findOne({ roomId: req.params.room });
     console.log(meetingDetails);
     res.render('meetingdetails.ejs', { meetingDetails: meetingDetails });
 })
-router.get('/schedule', middlewares.loginRequired, async (req, res) => {
 
+router.get('/schedule', middlewares.loginRequired, async (req, res) => {
     const MeetingDetails = await UserMeetPacket.find({ userId: req.user._id });
     res.render('schedulemeeting.ejs', { MeetingDetails: MeetingDetails });
 })
+
 router.post('/schedule', middlewares.loginRequired, async (req, res) => {
     const newMeeting = new Meeting({});
     console.log('This is req.body()');
@@ -87,7 +84,6 @@ router.post('/schedule', middlewares.loginRequired, async (req, res) => {
         // console.log(packetDone);
         res.redirect('/meeting');
     }
-
-
 })
+
 module.exports = router;

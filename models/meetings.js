@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+
 var MeetingSchema = new mongoose.Schema({
     Name: String,
     startTime: Date,
@@ -16,4 +17,5 @@ var MeetingSchema = new mongoose.Schema({
         }
     ]
 });
+
 module.exports = mongoose.model('Meeting', MeetingSchema);
